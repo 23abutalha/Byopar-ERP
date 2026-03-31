@@ -1,0 +1,50 @@
+datasource db {
+  provider = "postgresql"
+  // URL is removed from here to stop the P1012 error
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+// ... your models (Business, User, etc.) remain below
+// ... Keep all your models (Business, User, etc.) below
+
+model Business {
+  id        String    @id @default(uuid())
+  name      String
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  users     User[]
+  products  Product[]
+  invoices  Invoice[]
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  businessId   String
+  business     Business @relation(fields: [businessId], references: [id])
+}
+
+model Product {
+  id         String   @id @default(uuid())
+  name       String
+  price      Float
+  stock      Int
+  sku        String   @unique // <--- ADD THIS LINE
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model Invoice {
+  id          String   @id @default(uuid())
+  invoiceNo   String   @unique
+  totalAmount Decimal  @db.Decimal(12, 2)
+  createdAt   DateTime @default(now())
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+}
