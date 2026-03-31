@@ -1,0 +1,16 @@
+{
+  "name": "Byopar ERP",
+  "short_name": "Byopar",
+  "description": "AI-Driven Retail Management System",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2622/2622713.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
